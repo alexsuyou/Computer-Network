@@ -1,0 +1,9 @@
+# ignore folder for the project
+
+#排除繳交資料夾中的所有內容
+/繳交/
+
+#排除作業一中的.png檔案
+/Assignment 1/*.png
+#排除作業一中的.pcapng檔案
+/Assignment 1/*.pcapng
