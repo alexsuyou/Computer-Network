@@ -3,7 +3,7 @@ Intro: Click [here]()
 * TCP Implementation: Click [here](https://github.com/alexsuyou/Computer-Network/tree/main/Assignment%201)
 ## Assignment 2
 Intro: Click [here]()
-* NFTP Implementation: Click [here](https://github.com/alexsuyou/Computer-Network/tree/main/Assignment%202)
+* MFTP Implementation: Click [here](https://github.com/alexsuyou/Computer-Network/tree/main/Assignment%202)
 ## Assignment 3
 Intro: Click [here]()
 * ???: Click [here]()
