@@ -15,10 +15,19 @@ while True:
         # I: Payload Length (4 bytes)
         header_send = struct.pack("!HBI", 0x4D46, 0x01, 0) # Create header
         clientSocket.send(header_send) # Send the header to the server
+        header_recv = clientSocket.recv(7) # Receive the header from the server
+        magic_number, cmd, length = struct.unpack("!HBI", header_recv) # Unpack the header
+        if magic_number == 0x4D46:
+            file_list = clientSocket.recv(length.decode()).decode() # Get the file list from the server
+            print(file_list)
     elif user_input[0] == "get":
         filename = user_input[1]
         header_send = struct.pack("!HBI", 0x4D46, 0x02, len(filename.encode()))
         clientSocket.send(header_send + filename.encode()) # Send the header and filename to the server
+
+    
+
+    if cmd == 
 
     if sentence == "exit":
         # Wait for the server to close the connection and send FIN

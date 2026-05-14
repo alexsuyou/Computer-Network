@@ -22,7 +22,7 @@ while True:
                 header_send = struct.pack("!HBI", 0x4D46, 0x04, len(file_list_str.encode())) # Create header
                 connectionSocket.send(header_send + file_list_str.encode())
             elif cmd == 0x02: # command is "get"
-                filename = connectionSocket.recv(length.decode()) # Receive the filename from the client that client want to get
+                filename = connectionSocket.recv(length).decode() # Receive the filename from the client that client want to get
                 filepath = os.path.join(directory, filename)
                 with(filepath, "rb") as file: # "rb": read in binary
                     file_data = file.read() # read file into file_data
