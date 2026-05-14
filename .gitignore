@@ -3,7 +3,8 @@
 #排除繳交資料夾中的所有內容
 /繳交/
 
-#排除作業一中的.png檔案
-/Assignment 1/*.png
-#排除作業一中的.pcapng檔案
-/Assignment 1/*.pcapng
+#排除作業每個作業檔案中的.png檔案
+**/*.png
+
+#排除所有作業中的的.pcapng檔案
+*.pcapng

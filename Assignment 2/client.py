@@ -39,6 +39,7 @@ while True:
                     print("Connection Interupt")
                     break
                 print(file_list.decode())
+        print()
     elif user_input[0] == "get":
         filename = user_input[1]
         header_send = struct.pack("!HBI", 0x4D46, 0x02, len(filename.encode()))
@@ -49,7 +50,7 @@ while True:
             if magic_number == 0x4D46:
                 if cmd == 0x04:
                     # if the file is exit in server
-                    print(f"{filename}is downloading...")
+                    print(f"{filename} is downloading...")
                     filepath_to_save = os.path.join(directory, filename) # The path we want to save the file
                     file_data = recv_all(length)
                     if file_data is None:
@@ -64,6 +65,7 @@ while True:
                         print("Connection Interupt")
                         break
                     print(error_msg_data.decode())
+        print()
     elif user_input[0] == "quit":
         header_send = struct.pack("!HBI", 0x4D46, 0x03, 0) # Create header
         clientSocket.sendall(header_send)
