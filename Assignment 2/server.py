@@ -38,16 +38,10 @@ while True:
                     if filename_bytes is not None:
                         filename = filename_bytes.decode() # decode filename_bytes as filename
                         filepath = os.path.join(directory, filename)
-                        # Check if the path is 
-                        if os.path.exists(filepath) and os.path.isfile(filepath): # if the file is in the directory
-                            with open(filepath, "rb") as file: # "rb": read in binary
-                                file_data = file.read() # read file into file_data
-                            header_send = struct.pack("!HBI", 0x4D46, 0x04, len(file_data))
-                            connectionSocket.sendall(header_send + file_data)
-                        else:
-                            error_msg = f"Error: File '{filename}' not found."
-                            header_send = struct.pack("!HBI", 0x4D46, 0x05, len(error_msg.encode()))
-                            connectionSocket.sendall(header_send + error_msg.encode())
+                        with open(filepath, "rb") as file: # "rb": read in binary
+                            file_data = file.read() # read file into file_data
+                        header_send = struct.pack("!HBI", 0x4D46, 0x04, len(file_data))
+                        connectionSocket.sendall(header_send + file_data)
                 elif cmd == 0x03:
                     connectionSocket.close()
                     break

@@ -47,24 +47,16 @@ while True:
         header_recv = recv_all(7)
         if header_recv:  # in case connection interrupt
             magic_number, cmd, length = struct.unpack("!HBI", header_recv)
-            if magic_number == 0x4D46:
-                if cmd == 0x04:
-                    # if the file is exit in server
-                    print(f"{filename} is downloading...")
-                    filepath_to_save = os.path.join(directory, filename) # The path we want to save the file
-                    file_data = recv_all(length)
-                    if file_data is None:
-                        print("Connection Interupt")
-                        break
-                    with open(filepath_to_save, "wb") as f: # wb: write in binary
-                        f.write(file_data)
-                        print(f"{filename} Download Successful!")
-                else: # if the file is not exit in server
-                    error_msg_data = recv_all(length)
-                    if error_msg_data is None:
-                        print("Connection Interupt")
-                        break
-                    print(error_msg_data.decode())
+            if magic_number == 0x4D46 and cmd == 0x04:
+                print(f"{filename} is downloading...")
+                filepath_to_save = os.path.join(directory, filename) # The path we want to save the file
+                file_data = recv_all(length)
+                if file_data is None:
+                    print("Connection Interupt")
+                    break
+                with open(filepath_to_save, "wb") as f: # wb: write in binary
+                    f.write(file_data)
+                    print(f"{filename} Download Successful!")
         print()
     elif user_input[0] == "quit":
         header_send = struct.pack("!HBI", 0x4D46, 0x03, 0) # Create header
