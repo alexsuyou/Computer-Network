@@ -9,7 +9,20 @@ clientSocket = socket(AF_INET, SOCK_DGRAM) # Create a UDP socket
 clientSocket.connect((serverName, serverPort)) # Connect to the server
 while True:
     filename = input('Which of file you want to save?') # Get user input
-    clientSocket.sendto(filename.encode(),(serverName, serverPort))
-    file, serverAddress = clientSocket.recvfrom(1024)
-    clientSocket.close()
+    header_send = struct.pack("!II", 0, 0)
+    # !: Use network byte order
+    # I(first): Seq Number (4 bytes)
+    # I(second): Ack Number (4 bytes)
+    
+    packet_send = header_send + filename.encode()
+    clientSocket.sendto(packet_send, (serverName, serverPort)) # send the packet to server
+    file_data, serverAddress = clientSocket.recvfrom(1024)
+    # file_data: the file data receive from server
+    # serverAddress: get the server address
+
+    filepath = os.path.join(directory, filename)
+    with open(filepath, "wb") as file:
+        file.write(file_data)
+        break
+clientSocket.close()
         
